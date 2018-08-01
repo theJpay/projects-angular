@@ -4,6 +4,12 @@
   border: solid black 0.05em;
 }
 
+.legend {
+  width: 0.8em;
+  height: 0.8em;
+  border: solid black 0.05em;
+}
+
 .ground {
   background-color: #563711;
 }
@@ -17,5 +23,5 @@
 }
 
 .burned {
-  background-color: #0f0903;
+  background-color: #b2beb5;
 }

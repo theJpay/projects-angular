@@ -7,7 +7,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text">x</div>
           </div>
-          <input type="number" class="form-control" name="x" [(ngModel)]="x" min="1" max="250" [disabled]="started">
+          <input type="number" class="form-control" name="x" [(ngModel)]="x" min="1" max="250" [disabled]="button">
         </div>
       </div>
       <div class="col-md-3 col-lg-2 mt-1">
@@ -15,7 +15,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text">y</div>
           </div>
-          <input type="number" class="form-control" name="y" [(ngModel)]="y" min="1" max="250" [disabled]="started">
+          <input type="number" class="form-control" name="y" [(ngModel)]="y" min="1" max="250" [disabled]="button">
         </div>
       </div>
     </div>
@@ -28,18 +28,38 @@
           <input type="number" class="form-control" name="dt" [(ngModel)]="interval" min="100" [disabled]="started">
         </div>
       </div>
-      <div class="col-md-3 col-lg-2 text-center mt-1">
-        <button class="btn btn-outline-secondary w-100" type="button" (click)="toggle()">{{started ? "Stop" : "Start"}}</button>
+      <div class="col-md-2 col-lg-1 text-center mt-1">
+        <button class="btn btn-outline-secondary w-100" type="button" (click)="toggle()">{{button ? "Stop" : "Start"}}</button>
+      </div>
+      <div class="col-md-2 col-lg-1 text-center mt-1">
+        <button class="btn btn-outline-secondary w-100" type="button" (click)="pause()" [disabled]="!button">{{started ? "Pause" : "Play"}}</button>
       </div>
     </div>
   </div>
 </div>
 
 <div id="display" class="w-100 mt-4 mb-5 px-1">
+  <div class="container text-center my-3">
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <span class="d-inline-block legend tree"></span> Arbre</li>
+      <li class="list-inline-item">
+        <span class="d-inline-block legend ground"></span> Terre</li>
+      <li class="list-inline-item">
+        <span class="d-inline-block legend fire"></span> Feu</li>
+      <li class="list-inline-item">
+        <span class="d-inline-block legend burned"></span> Cendres</li>
+    </ul>
+  </div>
+
   <table class="mx-auto">
     <tbody>
-      <tr *ngFor="let row of map">
-        <td *ngFor="let el of row" [class]="'frame ' + getState(el)"></td>
+      <tr *ngFor="let row of map; let i = index">
+        <ng-container *ngIf="i > 0 && i < this.x+1">
+          <ng-container *ngFor="let el of row; let j = index">
+            <td *ngIf="j > 0 && j < this.y+1" [class]="'frame ' + getState(el)"></td>
+          </ng-container>
+        </ng-container>
       </tr>
     </tbody>
   </table>
