@@ -6,17 +6,32 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./list.component.css"]
 })
 export class ListComponent implements OnInit {
-  arrayExample: string[] = [];
+  todosArray: string[] = [];
   newValue: string = "";
 
   ngOnInit() {
-    this.arrayExample.push("Tableau Initialisé");
+    this.todosArray = this.getTodos();
   }
 
-  addAString() {
+  public addAString(): void {
     if (this.newValue !== "") {
-      this.arrayExample.push(this.newValue);
+      this.todosArray.push(this.newValue);
+      this.setLocalArrayTodos(this.todosArray);
       this.newValue = "";
     }
+  }
+
+  public dellAString(i: number): void {
+    this.todosArray.splice(i, 1);
+    this.setLocalArrayTodos(this.todosArray);
+  }
+
+  private getTodos(): string[] {
+    let localArray = JSON.parse(localStorage.getItem("todosAngular"));
+    return localArray ? localArray.todos : [];
+  }
+
+  private setLocalArrayTodos(todos: string[]): void {
+    localStorage.setItem("todosAngular", JSON.stringify({ todos: todos }));
   }
 }
