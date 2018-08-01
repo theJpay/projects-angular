@@ -18,6 +18,10 @@ export class ForestFireComponent implements OnInit {
 
   ngOnInit() {}
 
+  private getRandom(): number {
+    return Math.random();
+  }
+
   public getState(i: number) {
     switch (i) {
       case 0:
@@ -33,10 +37,17 @@ export class ForestFireComponent implements OnInit {
 
   private init() {
     this.map = [];
+    let frame;
     for (let i = 0; i < this.y; i++) {
       this.map.push([]);
       for (let j = 0; j < this.x; j++) {
-        this.map[i].push(0);
+        if (this.getRandom() > 0.9) {
+          frame = 1;
+        }
+        else {
+          frame = 0;
+        }
+        this.map[i].push(frame);
       }
     }
   }
