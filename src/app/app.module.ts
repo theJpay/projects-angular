@@ -8,6 +8,8 @@ import { ListComponent } from "./list/list.component";
 
 import { RouterModule, Routes } from "@angular/router";
 
+import { KonamiModule } from "ngx-konami";
+
 const appRoutes: Routes = [
   {
     path: "home",
@@ -25,11 +27,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, ListComponent],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    RouterModule.forRoot(appRoutes)
-  ],
+  imports: [BrowserModule, FormsModule, RouterModule.forRoot(appRoutes), KonamiModule],
   providers: [],
   bootstrap: [AppComponent]
 })
