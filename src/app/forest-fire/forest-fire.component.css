@@ -1,0 +1,21 @@
+.frame {
+  width: 0.5em;
+  height: 0.5em;
+  border: solid black 0.05em;
+}
+
+.ground {
+  background-color: #563711;
+}
+
+.tree {
+  background-color: #459e64;
+}
+
+.fire {
+  background-color: #f25309;
+}
+
+.burned {
+  background-color: #0f0903;
+}

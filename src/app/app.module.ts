@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
 import { ListComponent } from "./list/list.component";
+import { ForestFireComponent } from "./forest-fire/forest-fire.component";
 
 import { RouterModule, Routes } from "@angular/router";
 
@@ -20,14 +21,28 @@ const appRoutes: Routes = [
     component: ListComponent
   },
   {
+    path: "forest-fire",
+    component: ForestFireComponent
+  },
+  {
     path: "**",
     redirectTo: "home"
   }
 ];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, ListComponent],
-  imports: [BrowserModule, FormsModule, RouterModule.forRoot(appRoutes), KonamiModule],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    ListComponent,
+    ForestFireComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    RouterModule.forRoot(appRoutes),
+    KonamiModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

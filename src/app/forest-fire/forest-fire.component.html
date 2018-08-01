@@ -1,0 +1,38 @@
+<div class="container">
+  <h1 class="text-center mb-5">Simulation d'une population d'arbres</h1>
+  <div id="input">
+    <div class="row mb-1">
+      <div class="col-md-3 col-lg-2 mr-auto">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">x</div>
+          </div>
+          <input type="number" class="form-control" name="x" [(ngModel)]="x" [disabled]="started">
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-2">
+        <button class="btn btn-outline-secondary" type="button" (click)="toggle();startStop()">{{started ? "Stop" : "Start"}}</button>
+      </div>
+    </div>
+    <div class="row mb-1">
+      <div class="col-md-3 col-lg-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">y</div>
+          </div>
+          <input type="number" class="form-control" name="y" [(ngModel)]="y" [disabled]="started">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="started" id="display" class="w-100 mt-4 mb-5 px-1">
+  <table class="mx-auto">
+    <tbody>
+      <tr *ngFor="let row of map">
+        <td *ngFor="let el of row" [class]="'frame ' + getState(el)"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
