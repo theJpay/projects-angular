@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:ghpages": "ng build --prod --base-href https://thejpay.github.io/rapport-exemple-angular/"
+    "build:ghpages": "ng build --prod --base-href https://thejpay.github.io/projects-angular/"
   },
   "private": true,
   "dependencies": {
