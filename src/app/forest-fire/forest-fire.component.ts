@@ -33,18 +33,6 @@ export class ForestFireComponent implements OnInit {
 
   ngOnInit() {}
 
-  private getRandom(): number {
-    return Math.random();
-  }
-
-  private getRandomRange(min: number, max: number): number {
-    if (max > min) {
-      return min + Math.random() * (max - min);
-    } else {
-      return this.getRandomRange(max, min);
-    }
-  }
-
   public getState(i: number): string {
     switch (i) {
       case 0:
@@ -65,15 +53,15 @@ export class ForestFireComponent implements OnInit {
     this.next = [];
     let frame;
     if (this.x <= 0) this.x = 1;
-    if (this.x > 250) this.x = 250;
+    if (this.x > 100) this.x = 100;
     if (this.y <= 0) this.y = 1;
-    if (this.y > 250) this.y = 250;
+    if (this.y > 100) this.y = 100;
     if (this.interval < 100) this.interval = 100;
     for (let i = 0; i < this.y + 2; i++) {
       this.map.push([]);
       this.next.push([]);
       for (let j = 0; j < this.x + 2; j++) {
-        if (this.getRandom() < 0.5) {
+        if (Math.random() < 0.5) {
           frame = 1;
         } else {
           frame = 0;
@@ -82,6 +70,7 @@ export class ForestFireComponent implements OnInit {
         this.next[i].push(0);
       }
     }
+    console.log(this.map)
   }
 
   public makeFire(i, j) {
@@ -93,8 +82,8 @@ export class ForestFireComponent implements OnInit {
   }
 
   private loopTransition(): void {
-    for (let x = 1; x < this.x + 1; x++) {
-      for (let y = 1; y < this.y + 1; y++) {
+    for (let x = 1; x < this.y + 1; x++) {
+      for (let y = 1; y < this.x + 1; y++) {
         let tree_neighbors = 0;
         let fire_neighbors = 0;
         for (let i = -1; i <= 1; i++) {
