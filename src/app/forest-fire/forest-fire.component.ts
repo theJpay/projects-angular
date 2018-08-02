@@ -12,7 +12,22 @@ export class ForestFireComponent implements OnInit {
   private next: number[][] = [];
   public x: number = 50;
   public y: number = 50;
-  public interval: number = 1000; //interval between two steps in millisecond
+  public interval: number = 100; //interval between two steps in millisecond
+
+  // Probas
+  public PBasetree: number = 0.015;
+  public Ptree: number = 0.08;
+  public PBasefire: number = 0;
+  public Pfire: number = 0.08;
+  public Pash: number = 0.08;
+  public Pground: number = 0.01;
+  //
+
+  private declareFire: any = {
+    test: false,
+    i: 0,
+    j: 0
+  };
 
   constructor() {}
 
@@ -69,6 +84,14 @@ export class ForestFireComponent implements OnInit {
     }
   }
 
+  public makeFire(i, j) {
+    this.declareFire = {
+      test: true,
+      i: i,
+      j: j
+    };
+  }
+
   private loopTransition(): void {
     for (let x = 1; x < this.x + 1; x++) {
       for (let y = 1; y < this.y + 1; y++) {
@@ -86,27 +109,31 @@ export class ForestFireComponent implements OnInit {
         }
         if (
           this.map[x][y] == 0 &&
-          Math.random() < 0.05 + 0.03 * tree_neighbors
+          Math.random() < this.PBasetree + this.Ptree * tree_neighbors
         ) {
           // Terre devient Arbre
           this.next[x][y] = 1;
         }
         if (
           this.map[x][y] == 1 &&
-          Math.random() < 0.0005 + 0.03 * fire_neighbors
+          Math.random() < this.PBasefire + this.Pfire * fire_neighbors
         ) {
           // Arbre devient Feu
           this.next[x][y] = 2;
         }
-        if (this.map[x][y] == 2 && Math.random() < 0.05) {
+        if (this.map[x][y] == 2 && Math.random() < this.Pash) {
           // Feu devient Terre brûlée
           this.next[x][y] = 3;
         }
-        if (this.map[x][y] == 3 && Math.random() < 0.005) {
+        if (this.map[x][y] == 3 && Math.random() < this.Pground) {
           // Terre brûlée devient Terre
           this.next[x][y] = 0;
         }
       }
+    }
+    if (this.declareFire.test) {
+      this.map[this.declareFire.i][this.declareFire.j] = 2;
+      this.declareFire.test = false;
     }
     this.map = this.next;
     setTimeout(() => {
