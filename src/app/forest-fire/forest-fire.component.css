@@ -29,3 +29,8 @@
 .burned {
   background-color: #b2beb5;
 }
+
+.formula {
+  overflow: auto;
+  white-space: nowrap;
+}
