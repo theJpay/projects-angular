@@ -1,0 +1,36 @@
+.help {
+  cursor: pointer;
+}
+
+.frame {
+  width: 0.5em;
+  height: 0.5em;
+  border: solid black 0.05em;
+}
+
+.legend {
+  width: 0.8em;
+  height: 0.8em;
+  border: solid black 0.05em;
+}
+
+.ground {
+  background-color: #563711;
+}
+
+.tree {
+  background-color: #459e64;
+}
+
+.fire {
+  background-color: #f25309;
+}
+
+.burned {
+  background-color: #b2beb5;
+}
+
+.formula {
+  overflow: auto;
+  white-space: nowrap;
+}

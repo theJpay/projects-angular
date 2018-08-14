@@ -1,0 +1,170 @@
+<div class="container">
+  <div class="text-center mb-5">
+    <h1 class="text-center mb-2">Forest Fire Simulation</h1>
+    <i class="far fa-question-circle help" data-toggle="modal" data-target="#helpModal"></i>
+  </div>
+
+  <div id="inputs">
+    <div class="row">
+      <div class="col-md-3 col-lg-2 mt-1">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">x</div>
+          </div>
+          <input type="number" class="form-control" name="x" [(ngModel)]="x" min="1" max="100" [disabled]="button">
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-2 mt-1 mr-auto">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">y</div>
+          </div>
+          <input type="number" class="form-control" name="y" [(ngModel)]="y" min="1" max="100" [disabled]="button">
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-2 mt-1">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">P(T1)</div>
+          </div>
+          <input type="number" class="form-control" name="PBasetree" [(ngModel)]="PBasetree" min="0" max="1" step="0.001" [disabled]="button">
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-2 mt-1">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">P(T2)</div>
+          </div>
+          <input type="number" class="form-control" name="Ptree" [(ngModel)]="Ptree" min="0" max="1" step="0.001" [disabled]="button">
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-2 mt-1">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">P(A)</div>
+          </div>
+          <input type="number" class="form-control" name="Pash" [(ngModel)]="Pash" min="0" max="1" step="0.001" [disabled]="button">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-lg-4 mt-1 mr-auto">
+        <div class="row">
+          <div class="col-12 col-lg-8 mx-auto input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">dt(ms)</div>
+            </div>
+            <input type="number" class="form-control" name="dt" [(ngModel)]="interval" min="100" [disabled]="started">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-2 mt-1">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">P(F1)</div>
+          </div>
+          <input type="number" class="form-control" name="PBasefire" [(ngModel)]="PBasefire" min="0" max="1" step="0.001" [disabled]="button">
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-2 mt-1">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">P(F2)</div>
+          </div>
+          <input type="number" class="form-control" name="Pfire" [(ngModel)]="Pfire" min="0" max="1" step="0.001" [disabled]="button">
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-2 mt-1">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">P(G)</div>
+          </div>
+          <input type="number" class="form-control" name="Pground" [(ngModel)]="Pground" min="0" max="1" step="0.001" [disabled]="button">
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-2 col-lg-1 text-center mt-1 ml-auto">
+        <button class="btn btn-secondary w-100" type="button" (click)="toggle()">{{button ? "Stop" : "Start"}}</button>
+      </div>
+      <div class="col-md-2 col-lg-1 text-center mt-1 mr-auto">
+        <button class="btn btn-secondary w-100" type="button" (click)="pause()" [disabled]="!button">{{started ? "Pause" : "Play"}}</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="display" class="w-100 mt-3 pb-5 px-1">
+
+  <div class="container text-center mb-3">
+    You can click to start a fire wherever you want.
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <span class="d-inline-block legend tree"></span> Tree</li>
+      <li class="list-inline-item">
+        <span class="d-inline-block legend ground"></span> Ground</li>
+      <li class="list-inline-item">
+        <span class="d-inline-block legend fire"></span> Fire</li>
+      <li class="list-inline-item">
+        <span class="d-inline-block legend burned"></span> Ashes</li>
+    </ul>
+  </div>
+
+  <table class="mx-auto">
+    <tbody>
+      <tr *ngFor="let row of map; let i = index">
+        <ng-container *ngIf="i > 0 && i < this.y+1">
+          <ng-container *ngFor="let el of row; let j = index">
+            <td *ngIf="j > 0 && j < this.x+1" [class]="'frame ' + getState(el)" (click)="this.makeFire(i,j)"></td>
+          </ng-container>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Explainations about this simulation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>There are four states, each one having a probability to change into the next one.</p>
+        <div class="row">
+          <div class="col-8 col-md-6 col-lg-4">
+            <ul class="px-4">
+              <li>Trees become fire</li>
+              <li>Fire becomes ashes</li>
+              <li>Ashes become ground</li>
+              <li>Ground becomes trees</li>
+            </ul>
+          </div>
+          <div class="col-4 px-0">
+            <ul class="list-unstyled">
+              <li>\((T \rightarrow F)\)</li>
+              <li>\((F \rightarrow A)\)</li>
+              <li>\((A \rightarrow G)\)</li>
+              <li>\((G \rightarrow T)\)</li>
+            </ul>
+          </div>
+        </div>
+        <p>The transitions probabilities are set as follow :</p>
+        <ul class="list-unstyled">
+          <li class="ml-0 formula">\(P(T \rightarrow F) = P(F1) + number\_of\_neighbors\_in\_fire * P(F2)\)</li>
+          <li class="ml-0 formula">\(P(F \rightarrow A) = P(A)\)</li>
+          <li class="ml-0 formula">\(P(A \rightarrow G) = P(G)\)</li>
+          <li class="ml-0 formula">\(P(G \rightarrow T) = P(T1) + number\_of\_neighbors\_trees * P(T2)\)</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

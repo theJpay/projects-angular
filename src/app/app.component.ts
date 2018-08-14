@@ -27,11 +27,11 @@ export class AppComponent {
         "background-color": "#0E2748"
       };
       this.appStyle = {
-        height: "100vh",
+        "min-height": "1200px",
         "background-image":
           "url(https://blog.headway-advisory.com/wp-content/uploads/2017/09/Poitou-Arnaud-Directeur-Centrale-Nantes-2.jpg)",
         "background-repeat": "no-repeat",
-        "background-position": "center center",
+        "background-position": "center",
         "background-attachment": "fixed",
         "background-size": "cover",
         color: "#DBA005"
