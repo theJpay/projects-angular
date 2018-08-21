@@ -31,7 +31,12 @@ export class ForestFireComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    let script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  }
 
   public getState(i: number): string {
     switch (i) {
@@ -70,7 +75,7 @@ export class ForestFireComponent implements OnInit {
         this.next[i].push(0);
       }
     }
-    console.log(this.map)
+    console.log(this.map);
   }
 
   public makeFire(i, j) {
