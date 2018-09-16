@@ -111,31 +111,64 @@ export class AStarComponent implements OnInit {
     return maze;
   }
 
-  public getState(i: string): string {
+  public getState(code: string): string {
     // Allow the client to use the right CSS class (color of the cell)
-    switch (i) {
-      case "#":
-        return "wall";
-      case "A":
-        return "start";
-      case "B":
-        return "end";
-      case "p":
-        return "path";
-      case "v":
-        return "visited";
-      case "o":
-        return "opened";
-      default:
-        return "";
+    let res = "";
+    for (let char of code) {
+      switch (char) {
+        case "#":
+          res += " wall";
+          break;
+        case "A":
+          res += " start";
+          break;
+        case "B":
+          res += " end";
+          break;
+        case "p":
+          res += " path";
+          break;
+        case "o":
+          res += " opened";
+          break;
+        case "v":
+          res += " visited";
+          break;
+        case "w":
+          res += " water";
+          break;
+        case "m":
+          res += " mount";
+          break;
+        case "f":
+          res += " forest";
+          break;
+        case "g":
+          res += " grass";
+          break;
+        case "r":
+          res += " road";
+          break;
+        default:
+          res += "";
+      }
     }
+    return res;
   }
 
   private getValue(x: string, y: string): number {
     // Define the cost of each type of cell
     switch (this.map[x][y]) {
-      case ".":
+      case "." || "r":
         return 1;
+      case "g":
+        return 5;
+      case "f":
+        return 10;
+      case "m":
+        return 50;
+      case "w":
+        return 100;
       case "#":
         return -1;
       case "B":
@@ -162,7 +195,8 @@ export class AStarComponent implements OnInit {
       let previous = current.parent;
       // We get the path from start to goal
       while (previous) {
-        this.map[previous.x][previous.y] = "p";
+        this.map[previous.x][previous.y] =
+          this.map[previous.x][previous.y][0] + "p";
         previous = previous.parent;
       }
       this.map[start.x][start.y] = "A";
@@ -192,7 +226,7 @@ export class AStarComponent implements OnInit {
           // We open it
           n.opened = true;
           toAdd = true;
-          this.map[n.x][n.y] = "o";
+          this.map[n.x][n.y] += "o";
           // If the cell is oppened we check if the new gscore is better than the previous one
         } else {
           // If the new gscore isn't better we skip the rest
@@ -211,7 +245,7 @@ export class AStarComponent implements OnInit {
           openSet = this.addIn(openSet, n);
         }
       }
-      this.map[current.x][current.y] = "v";
+      this.map[current.x][current.y] += "v";
       setTimeout(() => {
         // Continue the while loop if the openSet isn't empty
         if (openSet.length > 0 && this.button) {

@@ -9,31 +9,50 @@
 }
 
 .legend {
-  width: 0.8em;
-  height: 0.8em;
+  width: 1em;
+  height: 1em;
   border: solid black 0.08em;
 }
 
 .wall {
-  background-color: #777777;
-}
-
-.start {
-  background-color: green;
+  background-color: grey;
 }
 
 .end {
+  background-color: greenyellow;
+}
+
+.start {
   background-color: red;
 }
 
-.path {
-  background-color: cyan;
+.opened {
+  box-shadow: 0 0 0 0.2em blueviolet inset;
 }
 
 .visited {
-  background-color: orangered;
+  box-shadow: 0 0 0 0.2em lightsalmon inset;
 }
 
-.opened {
-  background-color: yellow;
+.path {
+  box-shadow: 0 0 0 0.2em cyan inset;
+}
+
+.water {
+  background-color: lightskyblue;
+}
+
+.mount {
+  background-color: lightgrey;
+}
+
+.forest {
+  background-color: forestgreen;
+}
+
+.grass {
+  background-color: darkseagreen;
+}
+.road {
+  background-color: sienna;
 }
