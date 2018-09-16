@@ -16,7 +16,7 @@ export class AStarComponent implements OnInit {
   // Properties
   public button: boolean = false;
   public map: string[][] = [];
-  public interval: number = 200; //interval between two steps in millisecond
+  public interval: number = 100; //interval between two steps in millisecond
 
   public missingA: boolean = false;
   public missingB: boolean = false;
@@ -88,11 +88,13 @@ export class AStarComponent implements OnInit {
   }
 
   public drawMaze(text: string): void {
-    // Get the map Array from the text file 
+    // Get the map Array from the text file
     let i = 0;
     this.map = [[]];
     for (let char of text) {
       switch (char) {
+        case "\r":
+          break;
         case "\n":
           this.map.push([]);
           i++;
@@ -130,7 +132,7 @@ export class AStarComponent implements OnInit {
   }
 
   private getValue(x: string, y: string): number {
-    // Define the cost of each type of cell 
+    // Define the cost of each type of cell
     switch (this.map[x][y]) {
       case ".":
         return 1;
@@ -165,7 +167,7 @@ export class AStarComponent implements OnInit {
       }
       this.map[start.x][start.y] = "A";
       this.map[end.x][end.y] = "B";
-    // If the current cell isn't the goal
+      // If the current cell isn't the goal
     } else {
       // We take out the current cell from the openSet
       openSet.splice(0, 1);
@@ -174,7 +176,7 @@ export class AStarComponent implements OnInit {
 
       // We get the neighbors
       const neighborsSet = this.neighbors(current.x, current.y, mapStar);
-      
+
       // For each neighbor
       for (let n of neighborsSet) {
         let toAdd = false;
@@ -191,7 +193,7 @@ export class AStarComponent implements OnInit {
           n.opened = true;
           toAdd = true;
           this.map[n.x][n.y] = "o";
-        // If the cell is oppened we check if the new gscore is better than the previous one 
+          // If the cell is oppened we check if the new gscore is better than the previous one
         } else {
           // If the new gscore isn't better we skip the rest
           if (n.gscore >= 0 && tempGScore >= n.gscore) {
@@ -274,6 +276,7 @@ export class AStarComponent implements OnInit {
     if (!this.button) {
     } else {
       this.drawMaze(this.getFile());
+      this.interval = Math.max(this.interval, 0);
       this.aStar();
     }
   }
