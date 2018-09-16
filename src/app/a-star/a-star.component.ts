@@ -24,7 +24,7 @@ export class AStarComponent implements OnInit {
     document.getElementsByTagName("head")[0].appendChild(script);
   }
 
-  private drawMaze(text) {
+  public drawMaze(text) {
     this.map = [[]];
     let i = 0;
     let j = 0;
