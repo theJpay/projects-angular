@@ -10,6 +10,7 @@ import { ForestFireComponent } from "./forest-fire/forest-fire.component";
 import { RouterModule, Routes } from "@angular/router";
 
 import { KonamiModule } from "ngx-konami";
+import { AStarComponent } from './a-star/a-star.component';
 
 const appRoutes: Routes = [
   {
@@ -25,6 +26,10 @@ const appRoutes: Routes = [
     component: ForestFireComponent
   },
   {
+    path: "a-star",
+    component: AStarComponent
+  },
+  {
     path: "**",
     redirectTo: "home"
   }
@@ -35,7 +40,8 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     ListComponent,
-    ForestFireComponent
+    ForestFireComponent,
+    AStarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,113 @@
+<div class="container">
+  <div class="text-center mb-5">
+    <h1 class="text-center mb-2">A* Algorithm Demonstration</h1>
+    <i class="far fa-question-circle help" data-toggle="modal" data-target="#helpModal"></i>
+  </div>
+
+  <div id="inputs">
+    <div class="row">
+      <div class="col-md-4 col-lg-4 mt-1 mr-auto">
+        <div class="row">
+          <div class="col-12 col-lg-8 input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">dt(ms)</div>
+            </div>
+            <input type="number" class="form-control" name="dt" [(ngModel)]="interval" min="0" [disabled]="button">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-8 mt-1 mr-auto">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Import a file</div>
+          </div>
+          <input type="file" class="form-control" name="maze" id="maze" accept=".txt" (change)="saveFile($event)">
+        </div>
+      </div>
+    </div>
+    <div *ngIf="missingA" class="alert alert-danger row mt-1" role="alert">
+      There is no starting point on the map. Please, take care to put a 'A' where you want the start to be.
+    </div>
+    <div *ngIf="missingB" class="alert alert-danger row mt-1" role="alert">
+      There is no goal on the map. Please, take care to put a 'B' where you want the goal to be.
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-2 col-lg-1 text-center mt-1 ml-auto">
+        <button class="btn btn-secondary w-100" type="button" (click)="toggle()" title="Draw the maze and start the pathfinding algortihm">{{button ? "Stop" : "Start"}}</button>
+      </div>
+      <div class="col-md-2 col-lg-1 text-center mt-1 mr-auto">
+        <button class="btn btn-secondary w-100" type="button" (click)="drawMaze(getFile())" [disabled]="button" title="Draw the maze to it's original state. Clean it if there is some info written.">Draw</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="display" class="w-100 mt-3 pb-5 px-1">
+
+  <div class="container text-center mb-3">
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <span class="d-inline-block legend wall"></span> Wall</li>
+      <li class="list-inline-item">
+        <span class="d-inline-block legend start"></span> Start</li>
+      <li class="list-inline-item">
+        <span class="d-inline-block legend end"></span> Goal</li>
+      <li class="list-inline-item">
+        <span class="d-inline-block legend visited"></span> Visited</li>
+      <li class="list-inline-item">
+        <span class="d-inline-block legend opened"></span> Opened</li>
+      <li class="list-inline-item">
+        <span class="d-inline-block legend path"></span> Shortest path</li>
+    </ul>
+  </div>
+
+  <table class="mx-auto">
+    <tbody>
+      <tr *ngFor="let row of map; let i = index">
+        <td *ngFor="let el of row; let j = index" [class]="'frame ' + getState(el)"></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Explainations about this application</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body w-100 text-justify">
+        <p>The purpose of this web application is to offer a little demonstration of the A* algorithm on the path-finding
+          problem. The algorithm will find the shortest path to go from point A to point B. How to design a maze ? The maze
+          can be submitted in a .txt file written as follow :</p>
+
+        <ul>
+          <li>An empty frame : '.'</li>
+          <li>A wall : '#'</li>
+          <li>The start : 'A'</li>
+          <li>The goal : 'B'</li>
+        </ul>
+
+        <p>Here is an exemple of the content of a .txt file :</p>
+
+        <code>
+        ....................<br>
+        ....................<br>
+        .........######.....<br>
+        ...........A..#..B..<br>
+        .........######.....<br>
+        ....................<br>
+        ....................<br>
+
+        </code>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

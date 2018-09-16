@@ -1,0 +1,39 @@
+.help {
+  cursor: pointer;
+}
+
+.frame {
+  width: 1.5em;
+  height: 1.5em;
+  border: solid black 0.08em;
+}
+
+.legend {
+  width: 0.8em;
+  height: 0.8em;
+  border: solid black 0.08em;
+}
+
+.wall {
+  background-color: #777777;
+}
+
+.start {
+  background-color: green;
+}
+
+.end {
+  background-color: red;
+}
+
+.path {
+  background-color: cyan;
+}
+
+.visited {
+  background-color: orangered;
+}
+
+.opened {
+  background-color: yellow;
+}
