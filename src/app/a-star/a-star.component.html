@@ -21,7 +21,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text">Import a file</div>
           </div>
-          <input type="file" class="form-control" name="maze" id="maze" accept=".txt" (change)="saveFile($event)">
+          <input type="file" class="form-control" name="maze" id="maze" accept=".txt" (change)="saveFile($event)" [disabled]="button">
         </div>
       </div>
     </div>
